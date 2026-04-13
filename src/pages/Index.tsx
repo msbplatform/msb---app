@@ -6,7 +6,7 @@ import ImpactSection from "@/components/ImpactSection";
 import DonationTracking from "@/components/DonationTracking";
 import AnonymousDonation from "@/components/AnonymousDonation";
 import GetInvolvedSection from "@/components/GetInvolvedSection";
-import ContactSection from "@/components/ContactSection";
+import ContactSection from "@/components/GetInTouchSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
