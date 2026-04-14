@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import faqHelpImage from "@/assets/faq-help-image.jpg";
 
 const FAQ = () => {
   const faqs = [
@@ -81,12 +80,7 @@ const FAQ = () => {
 
           {/* Hero Image */}
           <div className="lg:sticky lg:top-24">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-yellow-100">
-              <img
-                src={faqHelpImage}
-                alt="Friendly customer support representative helping customers with questions"
-                className="w-full h-full object-cover"
-              />
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-yellow-100"
             </div>
           </div>
         </div>
