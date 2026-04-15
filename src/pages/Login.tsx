@@ -1,5 +1,4 @@
 
-import LoginHeader from "@/components/LoginHeader";
 import LoginForm from "@/components/LoginForm";
 import LoginHeroImage from "@/components/LoginHeroImage";
 import AnonymousDonationSection from "@/components/AnonymousDonationSection";
