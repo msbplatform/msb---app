@@ -83,7 +83,6 @@ const FAQ = () => {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-yellow-100"
             </div>
           </div>
-        </div>
       </main>
 
       <Footer />
