@@ -4,7 +4,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, MessageSquare, Heart, Zap, Shield } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 const AboutContact = () => {
@@ -13,16 +12,9 @@ const AboutContact = () => {
     email: "",
     message: ""
   });
-  const {
-    toast
-  } = useToast();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    toast({
-      title: "Message sent!",
-      description: "Thank you for reaching out. We'll get back to you within 1 business day."
-    });
     setFormData({
       name: "",
       email: "",
