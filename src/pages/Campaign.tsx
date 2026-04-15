@@ -11,7 +11,6 @@ import { Separator } from "@/components/ui/separator";
 import { Heart, MessageCircle, Share2, Calendar, Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 import DonationModal from "@/components/DonationModal";
 import DonationsList from "@/components/DonationsList";
 import CampaignComments from "@/components/CampaignComments";
@@ -39,7 +38,6 @@ const Campaign = () => {
   const { campaignId } = useParams<{ campaignId: string }>();
   const [searchParams] = useSearchParams();
   const { user } = useAuth();
-  const { toast } = useToast();
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,11 +60,6 @@ const Campaign = () => {
       if (error) throw error;
 
       if (data?.success) {
-        toast({
-          title: "Thank you for supporting this campaign!",
-          description: `Your donation of £${data.amount} has been processed successfully.`,
-          variant: "default",
-        });
         // Reload campaign data to reflect updated totals
         await loadCampaign();
       }
@@ -135,11 +128,6 @@ const Campaign = () => {
       await loadLikesData(campaignId);
     } catch (error) {
       console.error('Error loading campaign:', error);
-      toast({
-        title: "Error loading campaign",
-        description: "Please try again later.",
-        variant: "destructive"
-      });
     } finally {
       setLoading(false);
     }
@@ -173,11 +161,6 @@ const Campaign = () => {
 
   const handleLikeToggle = async () => {
     if (!user) {
-      toast({
-        title: "Please log in",
-        description: "You need to be logged in to like campaigns.",
-        variant: "destructive"
-      });
       return;
     }
 
@@ -212,11 +195,6 @@ const Campaign = () => {
       }
     } catch (error) {
       console.error('Error toggling like:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update like status. Please try again.",
-        variant: "destructive"
-      });
     }
   };
 
@@ -234,17 +212,8 @@ const Campaign = () => {
     const url = window.location.href;
     try {
       await navigator.clipboard.writeText(url);
-      toast({
-        title: "Link copied!",
-        description: "Campaign link has been copied to clipboard.",
-      });
     } catch (error) {
       console.error('Failed to copy:', error);
-      toast({
-        title: "Failed to copy",
-        description: "Please try again.",
-        variant: "destructive"
-      });
     }
   };
 
