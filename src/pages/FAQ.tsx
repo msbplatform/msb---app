@@ -77,10 +77,9 @@ const FAQ = () => {
               </Button>
             </div>
           </div>
-
           {/* Hero Image */}
           <div className="lg:sticky lg:top-24">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-yellow-100"
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-green-100 to-yellow-100">
             </div>
           </div>
       </main>
