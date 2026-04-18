@@ -8,7 +8,6 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 
 interface LikedCampaign {
   id: string;
@@ -26,7 +25,6 @@ interface LikedCampaign {
 
 const LikedCampaigns = () => {
   const { user } = useAuth();
-  const { toast } = useToast();
   const navigate = useNavigate();
   const [campaigns, setCampaigns] = useState<LikedCampaign[]>([]);
   const [loading, setLoading] = useState(true);
@@ -77,11 +75,7 @@ const LikedCampaigns = () => {
       setCampaigns(campaignsData || []);
     } catch (error) {
       console.error('Error loading liked campaigns:', error);
-      toast({
-        title: "Error loading campaigns",
-        description: "Please try again later.",
-        variant: "destructive"
-      });
+      
     } finally {
       setLoading(false);
     }
@@ -102,17 +96,10 @@ const LikedCampaigns = () => {
       // Remove from local state
       setCampaigns(prev => prev.filter(c => c.id !== campaignId));
 
-      toast({
-        title: "Removed from liked campaigns",
-        description: "Campaign has been removed from your likes.",
-      });
+      
     } catch (error) {
       console.error('Error unliking campaign:', error);
-      toast({
-        title: "Error",
-        description: "Failed to unlike campaign. Please try again.",
-        variant: "destructive"
-      });
+      
     }
   };
 
