@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -22,7 +21,6 @@ const Auth = () => {
   const [resetEmail, setResetEmail] = useState('');
   
   const { signIn, signUp, resetPassword, updatePassword, user, isRecoveryMode } = useAuth();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   // Redirect if already logged in
@@ -40,24 +38,10 @@ const Auth = () => {
       const { error } = await signIn(email, password);
       
       if (error) {
-        toast({
-          title: 'Sign In Error',
-          description: error.message,
-          variant: 'destructive',
-        });
       } else {
-        toast({
-          title: 'Welcome back!',
-          description: 'Successfully signed in.',
-        });
         navigate('/');
       }
     } catch (error) {
-      toast({
-        title: 'Sign In Error',
-        description: 'An unexpected error occurred.',
-        variant: 'destructive',
-      });
     } finally {
       setLoading(false);
     }
@@ -71,24 +55,10 @@ const Auth = () => {
       const { error } = await signUp(email, password, fullName);
       
       if (error) {
-        toast({
-          title: 'Sign Up Error',
-          description: error.message,
-          variant: 'destructive',
-        });
       } else {
-        toast({
-          title: 'Account Created!',
-          description: 'Please check your email to confirm your account.',
-        });
         setActiveTab('signin');
       }
     } catch (error) {
-      toast({
-        title: 'Sign Up Error',
-        description: 'An unexpected error occurred.',
-        variant: 'destructive',
-      });
     } finally {
       setLoading(false);
     }
@@ -102,25 +72,11 @@ const Auth = () => {
       const { error } = await resetPassword(resetEmail);
       
       if (error) {
-        toast({
-          title: 'Password Reset Error',
-          description: error.message,
-          variant: 'destructive',
-        });
       } else {
-        toast({
-          title: 'Password Reset Email Sent',
-          description: 'Please check your email for a password reset link.',
-        });
         setShowForgotPassword(false);
         setResetEmail('');
       }
     } catch (error) {
-      toast({
-        title: 'Password Reset Error',
-        description: 'An unexpected error occurred.',
-        variant: 'destructive',
-      });
     } finally {
       setLoading(false);
     }
@@ -130,20 +86,11 @@ const Auth = () => {
     e.preventDefault();
     
     if (newPassword !== confirmPassword) {
-      toast({
-        title: 'Password Mismatch',
-        description: 'Passwords do not match.',
-        variant: 'destructive',
-      });
+      
       return;
     }
 
     if (newPassword.length < 6) {
-      toast({
-        title: 'Password Too Short',
-        description: 'Password must be at least 6 characters.',
-        variant: 'destructive',
-      });
       return;
     }
 
@@ -153,11 +100,7 @@ const Auth = () => {
       const { error } = await updatePassword(newPassword);
       
       if (error) {
-        toast({
-          title: 'Password Update Error',
-          description: error.message,
-          variant: 'destructive',
-        });
+        
       } else {
         toast({
           title: 'Password Updated',
@@ -168,11 +111,7 @@ const Auth = () => {
         navigate('/');
       }
     } catch (error) {
-      toast({
-        title: 'Password Update Error',
-        description: 'An unexpected error occurred.',
-        variant: 'destructive',
-      });
+     
     } finally {
       setLoading(false);
     }
