@@ -4,13 +4,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Heart, Share2, MessageCircle, Play } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const Campaigns = () => {
   const [campaigns, setCampaigns] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,11 +30,6 @@ const Campaigns = () => {
       setCampaigns(data || []);
     } catch (error: any) {
       console.error('Error loading campaigns:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load campaigns.",
-        variant: "destructive",
-      });
     } finally {
       setLoading(false);
     }
