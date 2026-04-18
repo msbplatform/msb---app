@@ -10,13 +10,12 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Upload, Image, Video, Loader2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
 const AddContent = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  
   const { user } = useAuth();
   
   const [formData, setFormData] = useState({
@@ -107,20 +106,12 @@ const AddContent = () => {
     e.preventDefault();
     
     if (!validateForm()) {
-      toast({
-        title: "Please fix the errors",
-        description: "Check all required fields and try again.",
-        variant: "destructive"
-      });
+      
       return;
     }
 
     if (!user) {
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to create a campaign.",
-        variant: "destructive"
-      });
+     
       navigate("/auth");
       return;
     }
@@ -163,22 +154,11 @@ const AddContent = () => {
 
       if (error) throw error;
       
-      toast({
-        title: "Campaign published successfully!",
-        description: formData.isPublic 
-          ? "Your campaign is now live and ready to receive donations."
-          : "Your private campaign has been created. You can view it in your profile.",
-      });
 
       // Navigate to the new campaign
       navigate(`/campaign/${data.id}`);
     } catch (error: any) {
       console.error('Error creating campaign:', error);
-      toast({
-        title: "Upload failed",
-        description: error.message || "Please try again later.",
-        variant: "destructive"
-      });
     } finally {
       setIsUploading(false);
     }
