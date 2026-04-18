@@ -7,7 +7,6 @@ import DonationModal from "@/components/DonationModal";
 import DonationsList from "@/components/DonationsList";
 import { Button } from "@/components/ui/button";
 import { Heart, Share2, MessageCircle, Play } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const DonateNow = () => {
@@ -16,7 +15,6 @@ const DonateNow = () => {
   const [donations, setDonations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
-  const { toast } = useToast();
 
   // Get campaign ID from URL params (defaulting to a demo campaign)
   const campaignId = searchParams.get('campaign') || 'demo-campaign';
@@ -42,10 +40,6 @@ const DonateNow = () => {
       if (error) throw error;
 
       if (data?.success) {
-        toast({
-          title: "Thank you!",
-          description: `Your donation of £${data.amount} has been processed successfully.`,
-        });
         
         // Reload campaign data to show updated totals
         loadCampaignData();
@@ -136,11 +130,7 @@ const DonateNow = () => {
       }
     } catch (error: any) {
       console.error('Error loading campaign data:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load campaign data.",
-        variant: "destructive",
-      });
+      
     } finally {
       setLoading(false);
     }
