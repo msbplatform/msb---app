@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Edit, Plus, Copy } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { QRCodeSVG } from 'qrcode.react';
 import EditProfileModal from "@/components/EditProfileModal";
@@ -16,7 +15,6 @@ const PrivateProfile = () => {
   const [loading, setLoading] = useState(true);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user, profile, refreshProfile } = useAuth();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,11 +39,6 @@ const PrivateProfile = () => {
       setCampaigns(data || []);
     } catch (error: any) {
       console.error('Error loading campaigns:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load your campaigns.",
-        variant: "destructive",
-      });
     } finally {
       setLoading(false);
     }
@@ -133,22 +126,11 @@ const PrivateProfile = () => {
                         
                         if (error) throw error;
                         
-                        toast({
-                          title: "Privacy Updated",
-                          description: e.target.checked 
-                            ? "Your profile is now public and visible to everyone" 
-                            : "Your profile is now private and only visible to you",
-                        });
                         
                         // Refresh the profile data
                         window.location.reload();
                       } catch (error: any) {
                         console.error('Error updating privacy:', error);
-                        toast({
-                          title: "Error",
-                          description: "Failed to update privacy settings.",
-                          variant: "destructive",
-                        });
                       }
                     }}
                     className="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary"
@@ -222,10 +204,6 @@ const PrivateProfile = () => {
                   className="mt-4"
                   onClick={() => {
                     navigator.clipboard.writeText(`${window.location.origin}/profile/${user.id}`);
-                    toast({
-                      title: "Copied!",
-                      description: "Profile link copied to clipboard",
-                    });
                   }}
                 >
                   <Copy className="w-4 h-4 mr-2" />
