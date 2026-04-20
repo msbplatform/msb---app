@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -23,7 +22,6 @@ const DonationModal = ({ isOpen, onClose, campaignId, campaignTitle }: DonationM
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   
-  const { toast } = useToast();
   const { user } = useAuth();
 
   const donationAmount = parseFloat(amount) || 0;
@@ -38,20 +36,10 @@ const DonationModal = ({ isOpen, onClose, campaignId, campaignTitle }: DonationM
 
   const handleDonate = async () => {
     if (donationAmount < 1) {
-      toast({
-        title: "Invalid Amount",
-        description: "Minimum donation amount is £1.00",
-        variant: "destructive",
-      });
       return;
     }
 
     if (!user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to make a donation.",
-        variant: "destructive",
-      });
       return;
     }
 
@@ -76,20 +64,11 @@ const DonationModal = ({ isOpen, onClose, campaignId, campaignTitle }: DonationM
         window.open(data.url, '_blank');
         onClose();
         
-        toast({
-          title: "Redirecting to Payment",
-          description: "Please complete your donation in the new tab.",
-        });
       } else {
         throw new Error("No checkout URL received");
       }
     } catch (error: any) {
       console.error('Donation error:', error);
-      toast({
-        title: "Error",
-        description: error.message || "Failed to process donation. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsProcessing(false);
     }
