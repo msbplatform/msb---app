@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Mail, ExternalLink, Image as ImageIcon } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { QRCodeSVG } from 'qrcode.react';
 
@@ -38,7 +37,6 @@ const PublicProfile = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(true);
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,11 +61,6 @@ const PublicProfile = () => {
       if (error) throw error;
       
       if (!data) {
-        toast({
-          title: "Profile not found",
-          description: "This user profile doesn't exist or is private.",
-          variant: "destructive",
-        });
         navigate('/');
         return;
       }
@@ -80,17 +73,7 @@ const PublicProfile = () => {
       
       // Handle specific error cases
       if (error.message?.includes('row-level security')) {
-        toast({
-          title: "Private Profile",
-          description: "This profile is set to private and cannot be viewed.",
-          variant: "destructive",
-        });
       } else {
-        toast({
-          title: "Error",
-          description: "Failed to load profile.",
-          variant: "destructive",
-        });
       }
       navigate('/');
     } finally {
@@ -113,11 +96,6 @@ const PublicProfile = () => {
       setCampaigns(data || []);
     } catch (error: any) {
       console.error('Error loading campaigns:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load campaigns.",
-        variant: "destructive",
-      });
     } finally {
       setLoading(false);
     }
@@ -127,10 +105,6 @@ const PublicProfile = () => {
     if (profile) {
       // For now, we'll create a placeholder modal or mailto link
       // You can replace this with a proper messaging system later
-      toast({
-        title: "Messaging",
-        description: "Messaging feature coming soon!",
-      });
     }
   };
 
