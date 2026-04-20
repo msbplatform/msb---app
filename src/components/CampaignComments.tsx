@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -25,7 +24,6 @@ interface CampaignCommentsProps {
 
 const CampaignComments = ({ campaignId }: CampaignCommentsProps) => {
   const { user } = useAuth();
-  const { toast } = useToast();
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,20 +74,10 @@ const CampaignComments = ({ campaignId }: CampaignCommentsProps) => {
     e.preventDefault();
     
     if (!user) {
-      toast({
-        title: "Please log in",
-        description: "You need to be logged in to comment.",
-        variant: "destructive"
-      });
       return;
     }
 
     if (!newComment.trim()) {
-      toast({
-        title: "Comment is empty",
-        description: "Please write something before submitting.",
-        variant: "destructive"
-      });
       return;
     }
 
@@ -107,18 +95,8 @@ const CampaignComments = ({ campaignId }: CampaignCommentsProps) => {
 
       setNewComment("");
       await loadComments();
-      
-      toast({
-        title: "Comment posted",
-        description: "Your comment has been added successfully."
-      });
     } catch (error) {
       console.error('Error posting comment:', error);
-      toast({
-        title: "Error posting comment",
-        description: "Please try again later.",
-        variant: "destructive"
-      });
     } finally {
       setIsSubmitting(false);
     }
@@ -134,18 +112,8 @@ const CampaignComments = ({ campaignId }: CampaignCommentsProps) => {
       if (error) throw error;
 
       await loadComments();
-      
-      toast({
-        title: "Comment deleted",
-        description: "Your comment has been removed."
-      });
     } catch (error) {
       console.error('Error deleting comment:', error);
-      toast({
-        title: "Error deleting comment",
-        description: "Please try again later.",
-        variant: "destructive"
-      });
     }
   };
 
