@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Upload } from "lucide-react";
 
@@ -18,7 +17,6 @@ interface EditProfileModalProps {
 
 const EditProfileModal = ({ isOpen, onClose, onProfileUpdated }: EditProfileModalProps) => {
   const { user, profile } = useAuth();
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(profile?.avatar_url || null);
@@ -80,20 +78,11 @@ const EditProfileModal = ({ isOpen, onClose, onProfileUpdated }: EditProfileModa
 
       if (error) throw error;
 
-      toast({
-        title: "Profile Updated",
-        description: "Your profile has been updated successfully.",
-      });
 
       onProfileUpdated();
       onClose();
     } catch (error: any) {
       console.error('Error updating profile:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update profile. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setLoading(false);
     }
