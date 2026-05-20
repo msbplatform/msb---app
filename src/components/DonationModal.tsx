@@ -61,7 +61,7 @@ const DonationModal = ({ isOpen, onClose, campaignId, campaignTitle }: DonationM
 
       if (data?.url) {
         // Open Stripe checkout in new tab
-        window.open(data.url, '_blank');
+        window.location.href = data.url;
         onClose();
         
       } else {
