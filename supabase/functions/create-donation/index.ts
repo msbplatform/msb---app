@@ -81,11 +81,16 @@ serve(async (req) => {
       ],
       success_url: `${frontendUrl}/?donation=success`,
       cancel_url: `${frontendUrl}/?donation=cancelled`,
-      metadata: {
-        donation_id: String(donation.id),
-        campaign_id: String(campaignId),
-        donor_id: String(user.id),
-      },
+     metadata: {
+  donation_id: String(donation.id),
+  campaign_id: String(campaignId),
+  donor_id: String(user.id),
+
+  campaignId: String(campaignId),
+  userId: String(user.id),
+  message: message || "",
+  isAnonymous: String(isAnonymous),
+},
     });
 
     await supabase
