@@ -82,9 +82,9 @@ serve(async (req) => {
       success_url: `${frontendUrl}/?donation=success`,
       cancel_url: `${frontendUrl}/?donation=cancelled`,
       metadata: {
-        donation_id: donation.id,
-        campaign_id: campaignId,
-        donor_id: user.id,
+        donation_id: String(donation.id),
+        campaign_id: String(campaignId),
+        donor_id: String(user.id),
       },
     });
 
