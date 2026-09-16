@@ -128,27 +128,52 @@ const DonationModal = ({ isOpen, onClose, campaignId, campaignTitle }: DonationM
             <Label htmlFor="anonymous">Make this donation anonymous</Label>
           </div>
 
-          {/* Summary Section */}
-          {donationAmount > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Donation Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between">
-                  <span>Donation amount</span>
-                  <span>£{donationAmount.toFixed(2)}</span>
-                </div>
-                <div className="border-t pt-3">
-                  <div className="flex justify-between font-semibold text-lg">
-                    <span>Total</span>
-                    <span>£{donationAmount.toFixed(2)}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+        {/* Summary Section */}
+{donationAmount > 0 && (() => {
+  const platformFee = donationAmount * 0.05;
+  const subtotal = donationAmount + platformFee;
 
+  // Gross-up Stripe's 1.5% + £0.20 processing fee
+  // so the donation + MSB platform fee remain after processing.
+  const total = (subtotal + 0.20) / (1 - 0.015);
+  const processingFee = total - subtotal;
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg">Donation Summary</CardTitle>
+      </CardHeader>
+
+      <CardContent className="space-y-3">
+        <div className="flex justify-between">
+          <span>Campaign donation</span>
+          <span>£{donationAmount.toFixed(2)}</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>MSB platform fee (5%)</span>
+          <span>£{platformFee.toFixed(2)}</span>
+        </div>
+
+        <div className="flex justify-between">
+          <span>Payment processing</span>
+          <span>£{processingFee.toFixed(2)}</span>
+        </div>
+
+        <div className="border-t pt-3">
+          <div className="flex justify-between font-semibold text-lg">
+            <span>Total</span>
+            <span>£{total.toFixed(2)}</span>
+          </div>
+        </div>
+
+        <p className="text-xs text-gray-500">
+          100% of your campaign donation is used towards the campaigner's goal.
+        </p>
+      </CardContent>
+    </Card>
+  );
+})()}
           {/* Donate Button */}
           <Button
             onClick={handleDonate}
