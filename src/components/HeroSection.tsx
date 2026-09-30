@@ -13,10 +13,10 @@ const HeroSection = () => {
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Grace Smells
+              Helping people's mind,soul & body. 
               </h1>
               <p className="text-lg text-gray-600 max-w-lg">
-                Post a campaign that benefits your mind,body or soul. When a campaign is funded, MSB makes the purchase for the campaigners goal.
+                Post a campaign that benefits your mind,soul & body. When a campaign is funded, MSB makes the purchase for the campaigners goal.
               </p>
             </div>
             
