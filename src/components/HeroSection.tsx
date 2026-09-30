@@ -35,8 +35,8 @@ const HeroSection = () => {
           <div className="relative">
             <div className="bg-primary rounded-3xl overflow-hidden h-[500px] relative">
               <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=500&fit=crop&crop=center"
-                alt="Person working on laptop"
+                src="/MSB.HERO.png"
+                alt="MSB support for mind, soul and body"
                 className="absolute right-0 top-1/2 transform -translate-y-1/2 w-80 h-80 object-cover rounded-2xl shadow-lg"
               />
               <div className="absolute top-8 left-8 w-32 h-32 bg-white/20 rounded-full"></div>
