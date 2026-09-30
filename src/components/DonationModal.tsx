@@ -151,7 +151,7 @@ const DonationModal = ({ isOpen, onClose, campaignId, campaignTitle }: DonationM
         </div>
 
         <div className="flex justify-between">
-          <span>MSB platform fee (5%)</span>
+          <span> Platform fee (5%)</span>
           <span>£{platformFee.toFixed(2)}</span>
         </div>
 
