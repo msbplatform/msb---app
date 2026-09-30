@@ -13,13 +13,10 @@ const HeroSection = () => {
           <div className="space-y-8 animate-fade-in">
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Empowering Creators
-                <br />
-                <span className="text-gray-700">&</span> Enriching Lives
+                Helping people to benefit their mind,body & soul. 
               </h1>
               <p className="text-lg text-gray-600 max-w-lg">
-                Join our mission to support creators and make a meaningful impact in communities worldwide. 
-                Every donation creates ripples of positive change.
+                Change lives one donation at a time. When a campaign is funded, MSB makes the purchase for the campaigner. 
               </p>
             </div>
             
@@ -29,7 +26,7 @@ const HeroSection = () => {
                 className="bg-black text-white hover:bg-gray-800 transition-colors px-8 py-3"
                 onClick={() => window.location.href = user ? '/profile' : '/auth'}
               >
-                Get Started
+                Post/Donate
               </Button>
             </div>
           </div>
